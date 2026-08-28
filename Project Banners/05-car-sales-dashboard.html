@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Banner — Car Sales Performance Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFEA;
+    --paper-deep:#E4E7E0;
+    --ink:#1B2430;
+    --ink-soft:#4B5563;
+    --rule: rgba(27,36,48,0.14);
+    --ochre:#B96A22;
+    --teal:#2F6F63;
+    --radius: 16px;
+  }
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background:#DADDD5;
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:40px 20px;
+    font-family:'Inter', sans-serif;
+  }
+
+  .banner{
+    position:relative; display:block; width:100%; max-width: 400px;
+    height: fit-content; align-self: start;
+    text-decoration:none; color:var(--ink);
+    background:var(--paper); border-radius:var(--radius); border:1px solid var(--rule);
+    overflow:hidden;
+    box-shadow: 0 1px 2px rgba(27,36,48,0.06), 0 14px 30px -18px rgba(27,36,48,0.25);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .banner:hover, .banner:focus-visible{
+    transform: translateY(-3px);
+    box-shadow: 0 1px 2px rgba(27,36,48,0.08), 0 22px 40px -18px rgba(27,36,48,0.32);
+  }
+  .banner:focus-visible{ outline: 2px solid var(--ochre); outline-offset: 3px; }
+
+  .grid-bg{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity:.5;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+            mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+  }
+
+  .content{ position:relative; padding: 26px 26px 22px; }
+
+  .stamp{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em;
+    color: var(--ochre); border: 1.25px solid var(--ochre);
+    padding: 5px 10px; border-radius: 3px; transform: rotate(-1.6deg); text-transform: uppercase;
+  }
+  .stamp::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--ochre); flex:none; }
+
+  .title{
+    font-family:'Fraunces', serif; font-weight:600; font-size: 25px; line-height: 1.1;
+    letter-spacing: -0.01em; margin: 14px 0 10px; color: var(--ink);
+  }
+
+  .desc{ font-size: 14px; line-height:1.5; color: var(--ink-soft); margin: 0 0 16px; }
+
+  .tags{ list-style:none; display:flex; flex-wrap:wrap; gap:7px; padding:0; margin:0 0 18px; }
+  .tags li{
+    font-family:'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing:.03em;
+    color: var(--ink); background: var(--paper-deep); border: 1px solid var(--rule);
+    padding: 5px 9px; border-radius: 5px;
+  }
+
+  .chart-wrap{ width:100%; aspect-ratio: 560 / 150; margin-bottom: 18px; }
+  .chart-wrap svg{ width:100%; height:100%; display:block; overflow:visible; }
+
+  /* ===== shared chart primitives ===== */
+  .trend-line{
+    fill:none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
+    animation: draw 1.5s cubic-bezier(.2,.7,.2,1) .1s forwards;
+  }
+  .vertex{ fill: var(--ink); opacity:.7; }
+  .leader{ stroke: var(--ink); stroke-width:1; opacity:.32; stroke-dasharray: 2 3; }
+  .callout{ opacity:0; animation: fadein .6s ease 1s forwards; }
+  .callout-flag{ fill: var(--ochre); }
+  .callout-dot{ fill: var(--paper); stroke: var(--ochre); stroke-width:2.2; }
+  .callout-label{
+    font-family:'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing:.03em;
+    fill: var(--ink); text-anchor: middle;
+  }
+  .micro-label{
+    font-family:'IBM Plex Mono', monospace; font-size: 9px; letter-spacing:.04em; fill: var(--ink-soft);
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes fadein{ to{ opacity:1; } }
+
+  .live-ring{
+    fill:none; stroke: var(--teal); stroke-width:1.3; opacity:0; transform-origin: center;
+    animation: pulse 2.4s ease-out 1.6s infinite;
+  }
+  .live-dot{ fill: var(--teal); }
+  @keyframes pulse{
+    0%{ opacity:.55; transform:scale(.4); }
+    75%{ opacity:0; transform:scale(2.4); }
+    100%{ opacity:0; transform:scale(2.4); }
+  }
+
+  /* bars (horizontal) */
+  .bar-track{ fill: var(--paper-deep); }
+  .bar-fill{
+    fill: var(--ink); transform-box: fill-box; transform-origin: left center;
+    animation: growx 1s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .bar-fill.accent{ fill: var(--ochre); }
+  @keyframes growx{ from{ transform: scaleX(0);} to{ transform: scaleX(1);} }
+
+  /* columns (vertical) */
+  .col-fill{
+    fill: var(--ink); opacity:.55; transform-box: fill-box; transform-origin: bottom center;
+    animation: growy 1s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .col-fill.accent{ fill: var(--ochre); opacity:1; }
+  @keyframes growy{ from{ transform: scaleY(0);} to{ transform: scaleY(1);} }
+
+  /* grid / dot-matrix cells */
+  .cell{ animation: pop .45s ease forwards; opacity:0; transform-box: fill-box; transform-origin:center; }
+  @keyframes pop{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+
+  /* donut */
+  .donut-track{ fill:none; stroke: var(--paper-deep); stroke-width:20; }
+  .donut-seg{ fill:none; stroke-width:20; stroke-linecap:butt; opacity:0; animation: fadein .5s ease forwards; }
+  .legend-sw{ }
+  .legend-label{
+    font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing:.02em; fill: var(--ink);
+  }
+
+  /* gauges */
+  .gauge-track{ fill:none; stroke: var(--paper-deep); stroke-width:8; stroke-linecap:round; }
+  .gauge-fill{ fill:none; stroke-width:8; stroke-linecap:round; animation: gaugedraw 1.2s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes gaugedraw{ from{ stroke-dashoffset: var(--start); } to{ stroke-dashoffset: var(--target); } }
+  .gauge-pct{
+    font-family:'IBM Plex Mono', monospace; font-size: 13px; font-weight:500; fill: var(--ink); text-anchor:middle;
+  }
+  .gauge-cap{
+    font-family:'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing:.08em; fill: var(--ink-soft); text-anchor:middle;
+  }
+
+  /* forecast */
+  .forecast-dash{ fill:none; stroke: var(--ochre); stroke-width:2; stroke-dasharray:5 5; stroke-linecap:round; }
+  .forecast-band{ opacity:.14; fill:var(--ochre); }
+  .today-line{ stroke: var(--ink); stroke-width:1; opacity:.35; stroke-dasharray: 2 3; }
+
+  .cta{
+    display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; color: var(--ink);
+    padding-bottom:2px; border-bottom: 1.5px solid var(--ink);
+  }
+  .cta svg{ width:14px; height:14px; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .banner:hover .cta svg, .banner:focus-visible .cta svg{ transform: translateX(5px); }
+</style>
+</head>
+<body>
+
+<a class="banner" href="#" aria-label="View case study: Car Sales Performance Dashboard">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="content">
+    <span class="stamp">Case file — Sales Analytics</span>
+    <h2 class="title">Car Sales Performance Dashboard</h2>
+    <p class="desc">Sales data spread across reports, turned into one real-time view of dealer performance.</p>
+
+    <ul class="tags">
+      <li>Tableau</li>
+    </ul>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 560 150" aria-hidden="true">
+
+        <text class="micro-label" x="10" y="33" fill="var(--ink-soft)">AUSTIN</text><rect class="bar-track" x="96" y="20" width="410" height="14" rx="4"></rect><rect class="bar-fill accent" x="96" y="20" width="380" height="14" rx="4" style="animation-delay:0.00s"></rect><text class="micro-label" x="10" y="60" fill="var(--ink-soft)">JANESVILLE</text><rect class="bar-track" x="96" y="47" width="410" height="14" rx="4"></rect><rect class="bar-fill " x="96" y="47" width="300" height="14" rx="4" style="animation-delay:0.10s"></rect><text class="micro-label" x="10" y="87" fill="var(--ink-soft)">SCOTTSDALE</text><rect class="bar-track" x="96" y="74" width="410" height="14" rx="4"></rect><rect class="bar-fill " x="96" y="74" width="250" height="14" rx="4" style="animation-delay:0.20s"></rect><text class="micro-label" x="10" y="114" fill="var(--ink-soft)">AURORA</text><rect class="bar-track" x="96" y="101" width="410" height="14" rx="4"></rect><rect class="bar-fill " x="96" y="101" width="200" height="14" rx="4" style="animation-delay:0.30s"></rect>
+        <g class="callout">
+          <line class="leader" x1="476" y1="17" x2="476" y2="4"></line>
+          <text class="callout-label" x="436" y="0">$371M+ SALES BOOK</text>
+        </g>
+        <circle class="live-ring" cx="476" cy="27" r="8"></circle>
+        <circle class="live-dot" cx="476" cy="27" r="3.6"></circle>
+
+      </svg>
+    </div>
+
+    <span class="cta">
+      View case study
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </span>
+  </div>
+</a>
+
+</body>
+</html>
