@@ -1,0 +1,19 @@
+.tech-logo {
+    width: 150px !important;
+    height: 80px !important;
+    object-fit: contain !important;
+}
+
+.tech-title {
+    margin-top: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.tech-wrap {
+    margin-top: 1rem !important;
+}
+
+.all-tech-wrap {
+    margin-bottom: 3rem !important;
+}
