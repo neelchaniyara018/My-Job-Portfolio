@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Download Banners — Neel Chaniyara</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --card-bg: #141417;
+    --card-border: rgba(255,255,255,0.08);
+    --text-primary: #ffffff;
+    --text-secondary: #8a8a8a;
+    --accent-pm: #6c7cff; /* indigo — Product Manager */
+    --accent-da: #34d399; /* emerald — Data Analyst */
+    --accent-ba: #f5a623; /* amber — Business Analyst */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    margin: 0;
+    padding: 60px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .context-label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  /* ===== the 3 banners — sized to match the stat-box row ===== */
+  .resume-banners {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 464px; /* matches the outlined box row width */
+  }
+
+  .resume-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px 16px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .resume-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,.35);
+  }
+
+  .resume-card.pm:hover { border-color: var(--accent-pm); }
+  .resume-card.da:hover { border-color: var(--accent-da); }
+  .resume-card.ba:hover { border-color: var(--accent-ba); }
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pm .dot { background: var(--accent-pm); }
+  .da .dot { background: var(--accent-da); }
+  .ba .dot { background: var(--accent-ba); }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .role {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-top: 10px;
+  }
+
+  .cta-icon {
+    align-self: flex-end;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-size: 15px;
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+
+  .resume-card:hover .cta-icon { transform: translateY(3px); }
+  .resume-card.pm:hover .cta-icon { background: var(--accent-pm); border-color: var(--accent-pm); }
+  .resume-card.da:hover .cta-icon { background: var(--accent-da); border-color: var(--accent-da); }
+  .resume-card.ba:hover .cta-icon { background: var(--accent-ba); border-color: var(--accent-ba); }
+
+  .note {
+    max-width: 464px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
+    border-top: 1px solid var(--card-border);
+    padding-top: 20px;
+  }
+  .note code {
+    background: #1c1c1f;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #ddd;
+  }
+</style>
+</head>
+<body>
+
+  <div class="context-label">Preview — sized to your stat-box row</div>
+
+  <div class="resume-banners">
+    <a class="resume-card pm" href="resumes/Neel-Chaniyara-Product-Manager-Resume.pdf" download aria-label="Download Product Manager resume (PDF)">
+      <div class="top-row"><span class="dot"></span><span class="eyebrow">Resume</span></div>
+      <span class="role">Product<br>Manager</span>
+      <span class="cta-icon" aria-hidden="true">↓</span>
+    </a>
+
+    <a class="resume-card da" href="resumes/Neel-Chaniyara-Data-Business-Analyst-Resume.pdf" download aria-label="Download Data/Business Analyst resume (PDF)">
+      <div class="top-row"><span class="dot"></span><span class="eyebrow">Resume</span></div>
+      <span class="role" style="font-size:15px;">Data/Business<br>Analyst</span>
+      <span class="cta-icon" aria-hidden="true">↓</span>
+    </a>
+
+    <a class="resume-card ba" href="resumes/Neel-Chaniyara-Forecasting-Capacity-Planner-Resume.pdf" download aria-label="Download Forecasting and Capacity Planner resume (PDF)">
+      <div class="top-row"><span class="dot"></span><span class="eyebrow">Resume</span></div>
+      <span class="role" style="font-size:14px;">Forecasting &amp; Capacity Planner</span>
+      <span class="cta-icon" aria-hidden="true">↓</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <strong style="color:#fff;">To use this on your site:</strong><br>
+    1. Upload your 3 resume PDFs to your site (e.g. an <code>/assets/resumes/</code> folder).<br>
+    2. Update the three <code>href</code> paths above to match those file names exactly.<br>
+    3. Drop this markup + CSS into the section where the outlined stat boxes are — it's sized to the same 464px row width and ~150px card height.<br>
+    4. Click a card to test — the arrow briefly turns into a checkmark to confirm the download started.
+  </div>
+
+  <script>
+    document.querySelectorAll('.resume-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var icon = card.querySelector('.cta-icon');
+        var original = icon.textContent;
+        icon.textContent = '✓';
+        setTimeout(function () { icon.textContent = original; }, 1800);
+      });
+    });
+  </script>
+
+</body>
+</html>

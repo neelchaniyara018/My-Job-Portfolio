@@ -17,3 +17,198 @@
 .all-tech-wrap {
     margin-bottom: 3rem !important;
 }
+
+/* ==========================================================================
+   Resume Download Banners Component (Home Page)
+   ========================================================================== */
+:root {
+    --accent-pm: #6c7cff; /* indigo — Product Manager */
+    --accent-da: #34d399; /* emerald — Data Analyst */
+    --accent-ba: #f5a623; /* amber — Business Analyst */
+}
+
+.about-client-box.resume-box {
+    padding: 24px 20px;
+}
+
+.resume-banners {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.resume-card {
+    position: relative;
+    background: #141417;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px 16px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.resume-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .35);
+}
+
+.resume-card.pm:hover { border-color: var(--accent-pm); }
+.resume-card.da:hover { border-color: var(--accent-da); }
+.resume-card.ba:hover { border-color: var(--accent-ba); }
+
+.resume-card .top-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.resume-card .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.resume-card.pm .dot { background: var(--accent-pm); }
+.resume-card.da .dot { background: var(--accent-da); }
+.resume-card.ba .dot { background: var(--accent-ba); }
+
+.resume-card .eyebrow {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    font-weight: 600;
+    margin: 0;
+}
+
+.resume-card .role {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-top: 10px;
+}
+
+.resume-card .cta-icon {
+    align-self: flex-end;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 15px;
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+
+.resume-card:hover .cta-icon { transform: translateY(3px); }
+.resume-card.pm:hover .cta-icon { background: var(--accent-pm); border-color: var(--accent-pm); }
+.resume-card.da:hover .cta-icon { background: var(--accent-da); border-color: var(--accent-da); }
+.resume-card.ba:hover .cta-icon { background: var(--accent-ba); border-color: var(--accent-ba); }
+
+@media (max-width: 576px) {
+    .resume-banners {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .resume-card {
+        min-height: 110px;
+    }
+}
+
+/* ==========================================================================
+   Project Mini-Card Component (Home Page Showcase Box)
+   ========================================================================== */
+.about-project-box {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.about-project-box .card-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 28px;
+}
+
+.about-project-box .card-top .grid-icon {
+    width: 16px;
+    height: 16px;
+    color: #9a9a9a;
+    flex-shrink: 0;
+}
+
+.about-project-box .card-top span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #9a9a9a;
+    letter-spacing: 0.02em;
+}
+
+.about-project-box .stack {
+    position: absolute;
+    top: 42%;
+    right: 18px;
+    width: 105px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.about-project-box .stack .leaf {
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+    transform-box: fill-box;
+    transform-origin: 50% 85%;
+}
+
+.about-project-box .stack .leaf.back {
+    transform: rotate(-13deg);
+}
+
+.about-project-box .stack .leaf.mid {
+    transform: rotate(-3deg);
+}
+
+.about-project-box .stack .leaf.front {
+    transform: rotate(8deg);
+}
+
+.about-project-box:hover .stack .leaf.back {
+    transform: rotate(-24deg) translate(-6px, -3px);
+}
+
+.about-project-box:hover .stack .leaf.mid {
+    transform: rotate(-6deg) translate(-1px, -2px);
+}
+
+.about-project-box:hover .stack .leaf.front {
+    transform: rotate(15deg) translate(5px, -4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-project-box .stack .leaf {
+        transition: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-project-box .stack {
+        width: 85px;
+        right: 10px;
+    }
+}

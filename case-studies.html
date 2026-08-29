@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml+png" href="./assets/images/favicon.png">
+<title>Product Case Studies — Neel Chaniyara</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRKLGXXY7G"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-BRKLGXXY7G');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/css/aos.css">
+<link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="./assets/css/custom.css">
+
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    --surface:#141414;
+    --surface-2:#1c1c1c;
+    --surface-3:#212121;
+    --border:rgba(255,255,255,0.08);
+    --border-hover:rgba(255,255,255,0.18);
+    --text-primary:#f5f5f5;
+    --text-secondary:#9a9a9a;
+    --text-tertiary:#6b6b6b;
+    --radius-lg:28px;
+    --radius-md:20px;
+    --radius-sm:14px;
+    --accent:#4FAE6E;
+    --accent-glow:rgba(79,174,110,0.38);
+  }
+
+  body{
+    background:#0f0f0f;
+    background-image: radial-gradient(ellipse 900px 500px at 50% 0%, rgba(255,255,255,0.05), transparent 60%);
+    background-repeat:no-repeat;
+    color:var(--text-primary);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+
+  /* ============ PAGE HEADING ============ */
+  .page-heading-wrap{
+    text-align:center;
+    padding:56px 24px 8px;
+  }
+  .page-heading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+  }
+  .page-heading h1{
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+    font-size:clamp(28px, 4.2vw, 46px);
+    color:#fff;
+  }
+  .sparkle{
+    width:24px;
+    height:24px;
+    flex-shrink:0;
+    color:var(--text-secondary);
+  }
+  .page-subtext{
+    max-width:520px;
+    margin:16px auto 0;
+    color:var(--text-secondary);
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  /* ============ LAYOUT: SIDEBAR + FEED ============ */
+  .layout{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:44px;
+    max-width:1200px;
+    margin:64px auto 120px;
+    padding:0 48px;
+    align-items:start;
+  }
+
+  /* --- Sidebar --- */
+  .sidebar{
+    position:sticky;
+    top:32px;
+  }
+  .search-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:13px 16px;
+    margin-bottom:20px;
+    transition:border-color .2s ease;
+  }
+  .search-box:focus-within{border-color:var(--border-hover);}
+  .search-box svg{width:16px;height:16px;color:var(--text-tertiary);flex-shrink:0;}
+  .search-box input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:#fff;
+    font-family:var(--font-sans);
+    font-size:14px;
+    width:100%;
+  }
+  .search-box input::placeholder{color:var(--text-tertiary);}
+
+  .sidebar-count{
+    font-size:12px;
+    color:var(--text-tertiary);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:4px 4px 12px;
+  }
+
+  .case-list{display:flex;flex-direction:column;gap:2px;}
+  .case-item{
+    display:block;
+    padding:14px 16px;
+    border-radius:var(--radius-sm);
+    border-left:2px solid transparent;
+    color:var(--text-secondary);
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .case-item:hover{color:#fff;background:var(--surface);}
+  .case-item.active{
+    color:#fff;
+    background:var(--surface);
+    border-left-color:#fff;
+  }
+  .case-item .item-meta{
+    display:block;
+    font-size:12px;
+    color:var(--text-tertiary);
+    font-weight:400;
+    margin-top:3px;
+  }
+
+  .no-results{
+    display:none;
+    color:var(--text-tertiary);
+    font-size:13px;
+    padding:14px 16px;
+  }
+
+  /* --- Feed: tile grid, scales up + reveals full content on hover (growth.design pattern) --- */
+  .feed{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 260px));
+    gap:22px;
+    justify-content:start;
+    padding:36px 0 70px;
+    overflow:visible;
+  }
+
+  .case-card{
+    position:relative;
+    aspect-ratio:4/3;
+    border-radius:var(--radius-lg);
+    background:linear-gradient(160deg, #2a2a2a 0%, #0a0a0a 100%);
+    border:1px solid var(--border);
+    overflow:hidden;
+    cursor:pointer;
+    transform:scale(1);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease;
+  }
+  .case-card:hover{
+    transform:scale(1.18);
+    border:2px solid rgba(255,255,255,0.9);
+    box-shadow:0 30px 70px rgba(0,0,0,0.65);
+    z-index:20;
+  }
+  .case-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 50% 38%, var(--accent-glow) 0%, transparent 62%);
+    opacity:0.28;
+    transition:opacity .4s ease;
+    pointer-events:none;
+  }
+  .case-card:hover::before{opacity:0.8;}
+
+  /* Both faces sit stacked on top of each other; opacity crossfades between them */
+  .face{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    text-align:center;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+
+  /* Resting face: icon + short title only */
+  .face-rest{opacity:1;}
+  .case-card:hover .face-rest{opacity:0;transform:translateY(-10px);pointer-events:none;}
+  .face-rest svg{width:52px;height:52px;color:#fff;margin-bottom:16px;}
+  .face-rest h3{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.01em;}
+
+  /* Hover face: icon + tag + full headline + read time — hidden until hover */
+  .face-hover{
+    opacity:0;
+    transform:translateY(10px);
+    justify-content:flex-start;
+    padding-top:26px;
+    pointer-events:none;
+  }
+  .case-card:hover .face-hover{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .face-hover svg.logo-icon{width:34px;height:34px;color:#fff;margin-bottom:12px;}
+  .hover-tag{
+    display:inline-block;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#e5e5e5;
+    background:rgba(255,255,255,0.14);
+    padding:5px 13px;
+    border-radius:999px;
+    margin-bottom:13px;
+  }
+  .hover-headline{
+    font-size:15.5px;
+    font-weight:700;
+    color:#fff;
+    line-height:1.42;
+    max-width:23ch;
+    margin-bottom:13px;
+  }
+  .hover-meta{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    color:var(--text-secondary);
+  }
+  .hover-meta svg{width:13px;height:13px;}
+
+  /* --- Signature icon: a quiet radar sweep standing in for "scans every portal, daily" --- */
+  .n18-radar{overflow:visible;}
+  .n18-radar .sweep-arm{
+    transform-box:fill-box; transform-origin:50% 50%;
+    animation:n18-sweep 5.5s linear infinite;
+  }
+  .n18-radar .fresh-node{
+    transform-box:fill-box; transform-origin:center;
+    filter:drop-shadow(0 0 5px var(--accent-glow));
+    animation:n18-pulse 2.3s ease-in-out infinite;
+  }
+  @keyframes n18-sweep{ to{ transform:rotate(360deg); } }
+  @keyframes n18-pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.5; transform:scale(0.75); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .n18-radar .sweep-arm, .n18-radar .fresh-node{ animation:none; }
+  }
+
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;padding:0 24px;margin-top:40px;}
+    .sidebar{position:relative;top:0;}
+    .case-list{flex-direction:row;flex-wrap:wrap;}
+    .case-item{border-left:none;border:1px solid var(--border);}
+    .case-item.active{border-color:#fff;}
+    .feed{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:16px;}
+    .case-card:hover{transform:scale(1.1);}
+  }
+</style>
+</head>
+<body>
+
+    <main class="main-workpage">
+
+        <!-- Header -->
+        <header class="header-area">
+            <div class="container">
+                <div class="gx-row d-flex align-items-center justify-content-between">
+                    <a href="./index.html" class="logo">
+                        <img src="./assets/images/2.svg" alt="Logo">
+                    </a>
+
+                    <nav class="navbar">
+                        <ul class="menu">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="works.html">Works</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                        <a href="./contact.html" class="theme-btn">Let's talk</a>
+                    </nav>
+
+                    <a href="./contact.html" class="theme-btn">Let's talk</a>
+
+                    <div class="show-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+<div class="page-heading-wrap">
+  <div class="page-heading">
+    <svg class="sparkle" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.2 10.8L22 12L13.2 13.2L12 22L10.8 13.2L2 12L10.8 10.8L12 2Z" stroke="currentColor" stroke-width="1"/></svg>
+    <h1>Product Case Studies</h1>
+    <svg class="sparkle" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.2 10.8L22 12L13.2 13.2L12 22L10.8 13.2L2 12L10.8 10.8L12 2Z" stroke="currentColor" stroke-width="1"/></svg>
+  </div>
+  <p class="page-subtext">A closer look at how I approach product problems — from research to shipped UI.</p>
+</div>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="text" id="searchInput" placeholder="Search case studies...">
+    </div>
+    <div class="sidebar-count" id="sidebarCount">1 case study</div>
+    <nav class="case-list" id="caseList">
+      <a class="case-item active" data-target="job-hunterz-n18" data-title="Job Hunterz N18">
+        Job Hunterz N18
+        <span class="item-meta">6 min read</span>
+      </a>
+    </nav>
+    <div class="no-results" id="noResults">No case studies match your search.</div>
+  </aside>
+
+  <!-- ============ FEED ============ -->
+  <div class="feed" id="feed">
+
+    <!-- Case study 1: Job Hunterz N18 -->
+    <a class="case-card" id="job-hunterz-n18" data-title="Job Hunterz N18" href="./job-hunterz-n18-case-study.html">
+
+      <!-- RESTING FACE: just an icon + short name, like the "Strava" / "Scarcity" tiles before hover -->
+      <div class="face face-rest">
+        <svg class="n18-radar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="44" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+          <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="1" opacity="0.26"/>
+          <circle cx="50" cy="50" r="16" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <g class="sweep-arm"><line x1="50" y1="50" x2="50" y2="7" stroke="currentColor" stroke-width="1.3" opacity="0.55" stroke-linecap="round"/></g>
+          <circle cx="50" cy="12" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle cx="83" cy="63" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle cx="23" cy="78" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle class="fresh-node" cx="18" cy="28" r="3.6" fill="var(--accent)"/>
+          <circle cx="50" cy="50" r="4.2" fill="currentColor"/>
+        </svg>
+        <h3>Job Hunterz N18</h3>
+      </div>
+
+      <!-- HOVER FACE: card pops up + reveals tag, full headline, read time — like the "McDonald's" hover state -->
+      <div class="face face-hover">
+        <svg class="logo-icon n18-radar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="44" stroke="currentColor" stroke-width="1" opacity="0.16"/>
+          <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="1" opacity="0.26"/>
+          <circle cx="50" cy="50" r="16" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <g class="sweep-arm"><line x1="50" y1="50" x2="50" y2="7" stroke="currentColor" stroke-width="1.3" opacity="0.55" stroke-linecap="round"/></g>
+          <circle cx="50" cy="12" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle cx="83" cy="63" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle cx="23" cy="78" r="2.6" fill="currentColor" opacity="0.5"/>
+          <circle class="fresh-node" cx="18" cy="28" r="3.6" fill="var(--accent)"/>
+          <circle cx="50" cy="50" r="4.2" fill="currentColor"/>
+        </svg>
+        <span class="hover-tag">Case Study</span>
+        <h3 class="hover-headline">How Job Hunterz N18 redesigned job search to cut time-to-apply in half</h3>
+        <div class="hover-meta">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7V12L15 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          6 min
+        </div>
+      </div>
+
+    </a>
+
+    <!--
+      TO ADD FUTURE CASE STUDIES:
+      1. Duplicate the <a class="case-item" ...> block above in #caseList with a new data-target/id.
+      2. Duplicate the entire <a class="case-card" ...> block above in #feed with a matching id — swap the icon, tag, and headline text.
+      3. Update #sidebarCount text.
+    -->
+
+  </div>
+</div>
+
+        <!-- Footer -->
+        <footer class="footer-area">
+            <div class="container">
+                <div class="footer-content text-center">
+                    <a href="./index.html" class="logo">
+                        <img src="./assets/images/2.svg" alt="Logo">
+                    </a>
+                    <ul class="footer-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="works.html">Works</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    <p class="copyright">
+                        &copy; Made with ❤️ by <a target="_blank" href="https://www.linkedin.com/in/neelchaniyara/"><span>Neel
+                                Chaniyara</span></a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="./assets/js/jquery-3.6.4.js"></script>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/aos.js"></script>
+    <script src="./assets/js/main.js"></script>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const caseItems = Array.from(document.querySelectorAll('.case-item'));
+  const caseCards = Array.from(document.querySelectorAll('.case-card'));
+  const noResults = document.getElementById('noResults');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    caseItems.forEach(item => {
+      const match = item.dataset.title.toLowerCase().includes(q);
+      item.style.display = match ? '' : 'none';
+    });
+
+    caseCards.forEach(card => {
+      const match = card.dataset.title.toLowerCase().includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
+
+  // Clicking a sidebar item scrolls to + highlights the matching card
+  caseItems.forEach(item => {
+    item.addEventListener('click', () => {
+      caseItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      const target = document.getElementById(item.dataset.target);
+      if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+</script>
+
+</body>
+</html>
