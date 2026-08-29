@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects Card — Neel Chaniyara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --surface:#141414;
+    --surface-2:#1c1c1c;
+    --border:rgba(255,255,255,0.08);
+    --border-hover:rgba(255,255,255,0.22);
+    --text-primary:#f5f5f5;
+    --text-secondary:#9a9a9a;
+    --text-tertiary:#6b6b6b;
+    --radius-lg:28px;
+    --font-sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;
+    padding:60px;
+    display:flex;
+    justify-content:center;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* ============ PROJECTS CARD — sized to match its sibling "About me" tile ============ */
+  .projects-card{
+    position:relative;
+    width:100%;
+    max-width:400px;
+    aspect-ratio:4/3;
+    border-radius:var(--radius-lg);
+    background:linear-gradient(150deg, var(--surface-2) 0%, var(--bg) 85%);
+    border:1px solid var(--border);
+    padding:30px 32px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease;
+  }
+  .projects-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--border-hover);
+    box-shadow:0 24px 50px -18px rgba(0,0,0,0.6);
+  }
+
+  /* soft corner glow, quiet at rest, blooms slightly on hover */
+  .projects-card::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 88% 8%, rgba(255,255,255,0.10) 0%, transparent 55%);
+    opacity:0.5;
+    transition:opacity .4s ease;
+    pointer-events:none;
+  }
+  .projects-card:hover::before{opacity:1;}
+
+  /* --- Signature illustration: a small fanned stack of project cards --- */
+  .stack{
+    position:absolute;
+    top:52%;
+    right:14px;
+    width:124px;
+    transform:translateY(-52%);
+    pointer-events:none;
+    z-index:1;
+  }
+  .stack .leaf{ transition:transform .4s cubic-bezier(.2,.8,.2,1); transform-box:fill-box; transform-origin:50% 85%; }
+  .stack .leaf.back{ transform:rotate(-13deg); }
+  .stack .leaf.mid{ transform:rotate(-3deg); }
+  .stack .leaf.front{ transform:rotate(8deg); }
+  .projects-card:hover .stack .leaf.back{ transform:rotate(-24deg) translate(-6px,-3px); }
+  .projects-card:hover .stack .leaf.mid{ transform:rotate(-6deg) translate(-1px,-2px); }
+  .projects-card:hover .stack .leaf.front{ transform:rotate(15deg) translate(5px,-4px); }
+  @media (prefers-reduced-motion: reduce){
+    .stack .leaf{ transition:none; }
+  }
+  @media (max-width:360px){
+    .stack{ width:96px; right:8px; }
+  }
+
+  .card-top{
+    display:flex; align-items:center; gap:9px;
+    position:relative; z-index:1;
+  }
+  .card-top .grid-icon{width:16px; height:16px; color:var(--text-secondary); flex-shrink:0;}
+  .card-top span{
+    font-size:13.5px; font-weight:500; color:var(--text-secondary);
+  }
+
+  .card-bottom{position:relative; z-index:1;}
+  .eyebrow{
+    font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--text-tertiary);
+    margin-bottom:10px;
+  }
+  .card-row{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .card-row h3{
+    font-size:26px; font-weight:700; letter-spacing:-0.01em; color:#fff;
+  }
+  .arrow-circle{
+    width:42px; height:42px; flex-shrink:0;
+    border-radius:50%;
+    border:1px dashed var(--border-hover);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s ease, background .3s ease;
+  }
+  .projects-card:hover .arrow-circle{
+    transform:rotate(45deg);
+    border-color:#fff;
+    background:rgba(255,255,255,0.08);
+  }
+  .arrow-circle svg{width:15px; height:15px; color:#fff;}
+</style>
+</head>
+<body>
+
+<a class="projects-card" href="case-studies.html">
+  <svg class="stack" viewBox="0 0 124 148" fill="none" aria-hidden="true">
+    <g class="leaf back">
+      <rect x="18" y="18" width="70" height="92" rx="12" stroke="currentColor" stroke-opacity="0.18" stroke-width="1.4"/>
+    </g>
+    <g class="leaf mid">
+      <rect x="14" y="14" width="72" height="94" rx="12" stroke="currentColor" stroke-opacity="0.32" stroke-width="1.4"/>
+    </g>
+    <g class="leaf front">
+      <rect x="10" y="10" width="76" height="98" rx="13" fill="#1a1a1a" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.4"/>
+      <rect x="22" y="26" width="52" height="30" rx="7" fill="#ffffff" fill-opacity="0.07"/>
+      <rect x="22" y="66" width="36" height="5" rx="2.5" fill="#ffffff" fill-opacity="0.55"/>
+      <rect x="22" y="77" width="24" height="4" rx="2" fill="#ffffff" fill-opacity="0.25"/>
+      <circle cx="66" cy="90" r="7" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.2"/>
+      <path d="M63.5 90H68.5M68.5 90L66.3 87.8M68.5 90L66.3 92.2" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </svg>
+
+  <div class="card-top">
+    <svg class="grid-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.6"/>
+      <rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.6"/>
+      <rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.6"/>
+      <rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.6"/>
+    </svg>
+    <span>My Works</span>
+  </div>
+
+  <div class="card-bottom">
+    <div class="eyebrow">Showcase</div>
+    <div class="card-row">
+      <h3>Projects</h3>
+      <span class="arrow-circle">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </div>
+</a>
+
+</body>
+</html>
