@@ -196,3 +196,17 @@ fetchProjectsDatabase().then(data => {
     console.error("Error fetching projects data:", error);
 });
 
+// Resume card download feedback
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.resume-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+            var icon = card.querySelector('.cta-icon');
+            if (icon) {
+                var original = icon.textContent;
+                icon.textContent = '✓';
+                setTimeout(function () { icon.textContent = original; }, 1800);
+            }
+        });
+    });
+});
+
